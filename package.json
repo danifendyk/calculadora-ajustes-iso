@@ -1,0 +1,9 @@
+{
+  "name": "calculadora-ajustes-iso",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Calculadora web independiente de ajustes y tolerancias dimensionales con referencia a ISO 286.",
+  "scripts": {
+    "test": "node tests/engine.test.cjs"
+  }
+}

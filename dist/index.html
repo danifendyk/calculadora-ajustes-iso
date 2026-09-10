@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Calculadora independiente de ajustes y tolerancias dimensionales con referencia técnica a ISO 286."
+    />
+    <title>Calculadora de ajustes ISO</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+        <div>
+          <p class="eyebrow">Instrumento de metrología dimensional</p>
+          <h1>Calculadora de ajustes</h1>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div class="standard-tag"><span>Referencia</span><strong>ISO 286</strong></div>
+        <div class="local-badge"><span></span> Disponible sin conexión</div>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="control-panel" aria-labelledby="input-title">
+        <div class="section-heading">
+          <div>
+            <p class="step">01 / Parámetros</p>
+            <h2 id="input-title">Defina el acoplamiento</h2>
+            <p class="section-copy">Introduzca la medida nominal y seleccione las zonas de tolerancia.</p>
+          </div>
+          <button class="ghost-button" id="reset-button" type="button">Restablecer</button>
+        </div>
+
+        <form id="fit-form" novalidate>
+          <label class="field diameter-field" for="diameter">
+            <span class="field-title">Diámetro nominal</span>
+            <span class="input-shell">
+              <input id="diameter" name="diameter" type="number" min="0.001" max="3150" step="any" value="100" inputmode="decimal" />
+              <b>mm</b>
+            </span>
+          </label>
+
+          <div class="fit-inputs">
+            <fieldset>
+              <legend><span class="zone-dot hole"></span>Agujero</legend>
+              <label>
+                <span>Desviación</span>
+                <select id="hole-zone" name="holeZone" aria-label="Desviación fundamental del agujero"></select>
+              </label>
+              <label>
+                <span>Grado IT</span>
+                <select id="hole-grade" name="holeGrade" aria-label="Grado de tolerancia del agujero"></select>
+              </label>
+            </fieldset>
+
+            <div class="fit-slash" aria-hidden="true"><span></span></div>
+
+            <fieldset>
+              <legend><span class="zone-dot shaft"></span>Eje</legend>
+              <label>
+                <span>Desviación</span>
+                <select id="shaft-zone" name="shaftZone" aria-label="Desviación fundamental del eje"></select>
+              </label>
+              <label>
+                <span>Grado IT</span>
+                <select id="shaft-grade" name="shaftGrade" aria-label="Grado de tolerancia del eje"></select>
+              </label>
+            </fieldset>
+          </div>
+        </form>
+
+        <div class="status-card" id="status-card" role="status" aria-live="polite">
+          <span class="status-signal" aria-hidden="true"><i></i><i></i><i></i></span>
+          <div>
+            <span class="status-label">Clasificación calculada</span>
+            <strong id="fit-class">Con juego</strong>
+          </div>
+          <div class="fit-identity">
+            <small>Ajuste</small>
+            <span class="fit-code" id="fit-code">H8/g6</span>
+          </div>
+        </div>
+
+        <div class="results" aria-label="Resultados del ajuste">
+          <article class="result-card hole-result">
+            <span><i></i>Agujero mínimo</span>
+            <strong id="hole-min">100,000</strong>
+            <small>mm</small>
+          </article>
+          <article class="result-card hole-result">
+            <span><i></i>Agujero máximo</span>
+            <strong id="hole-max">100,054</strong>
+            <small>mm</small>
+          </article>
+          <article class="result-card shaft-result">
+            <span><i></i>Eje mínimo</span>
+            <strong id="shaft-min">99,966</strong>
+            <small>mm</small>
+          </article>
+          <article class="result-card shaft-result">
+            <span><i></i>Eje máximo</span>
+            <strong id="shaft-max">99,988</strong>
+            <small>mm</small>
+          </article>
+          <article class="clearance-result">
+            <span>Extremo inferior</span>
+            <strong id="clearance-min">0,012</strong>
+            <small>mm</small>
+          </article>
+          <article class="clearance-result">
+            <span>Extremo superior</span>
+            <strong id="clearance-max">0,088</strong>
+            <small>mm</small>
+          </article>
+        </div>
+
+        <div class="secondary-results">
+          <div><span>Tolerancia agujero</span><b id="hole-it">54 µm</b></div>
+          <div><span>Tolerancia eje</span><b id="shaft-it">22 µm</b></div>
+          <div><span>Rugosidad orientativa</span><b id="roughness">Ra 1,6 / Ra 0,8</b></div>
+        </div>
+        <p class="scope-note"><strong>Alcance implementado:</strong> IT1–IT14 y zonas D, E, F, G, H, JS, K, M, N, P, R, S, T y U. La rugosidad es una orientación independiente y no forma parte del resultado ISO 286.</p>
+      </section>
+
+      <section class="diagram-panel" aria-labelledby="diagram-title">
+        <div class="section-heading">
+          <div>
+            <p class="step">02 / Lectura gráfica</p>
+            <h2 id="diagram-title">Campo de tolerancias</h2>
+            <p class="section-copy">Posición de cada banda respecto de la dimensión nominal.</p>
+          </div>
+          <div class="legend" aria-label="Leyenda">
+            <span><i class="hole"></i>Agujero</span>
+            <span><i class="shaft"></i>Eje</span>
+          </div>
+        </div>
+
+        <div class="diagram-frame">
+          <span class="frame-label frame-label-top">CORTE LONGITUDINAL / ESCALA AUTOMÁTICA</span>
+          <span class="frame-label frame-label-bottom">0 · PLANO NOMINAL</span>
+          <svg id="fit-diagram" viewBox="0 0 900 480" role="img" aria-labelledby="diagram-svg-title diagram-svg-desc">
+            <title id="diagram-svg-title">Representación del ajuste dimensional</title>
+            <desc id="diagram-svg-desc">Corte longitudinal de un eje dentro de su alojamiento y bandas de tolerancia respecto de la medida nominal.</desc>
+            <defs>
+              <linearGradient id="steel" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#515d64" />
+                <stop offset="0.2" stop-color="#aeb8bc" />
+                <stop offset="0.48" stop-color="#f8fbfb" />
+                <stop offset="0.72" stop-color="#b8c1c5" />
+                <stop offset="1" stop-color="#59666d" />
+              </linearGradient>
+              <radialGradient id="face" cx="38%" cy="34%" r="72%">
+                <stop offset="0" stop-color="#f9fbff" />
+                <stop offset="0.55" stop-color="#c5ced2" />
+                <stop offset="1" stop-color="#66747b" />
+              </radialGradient>
+              <linearGradient id="housing" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ff8a4f" />
+                <stop offset="0.55" stop-color="#ff6422" />
+                <stop offset="1" stop-color="#ca3c08" />
+              </linearGradient>
+              <linearGradient id="housingSide" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#d3430d" />
+                <stop offset="1" stop-color="#8f2603" />
+              </linearGradient>
+              <linearGradient id="holeBandFill" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ff9b69" />
+                <stop offset="1" stop-color="#ff6422" />
+              </linearGradient>
+              <linearGradient id="shaftBandFill" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#f6fa91" />
+                <stop offset="1" stop-color="#c8d02d" />
+              </linearGradient>
+              <pattern id="sectionHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+                <line x1="0" y1="0" x2="0" y2="9" stroke="#ffb28d" stroke-width="2" opacity="0.32" />
+              </pattern>
+              <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#05090b" flood-opacity="0.42" />
+              </filter>
+              <marker id="dimArrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#91a8b2" />
+              </marker>
+              <marker id="gapArrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#76d7e8" />
+              </marker>
+              <marker id="overlapArrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#ff8a4f" />
+              </marker>
+            </defs>
+
+            <g class="assembly-plate">
+              <text class="drawing-title" x="42" y="27">CORTE DEL ACOPLAMIENTO</text>
+              <text class="drawing-subtitle" x="42" y="45">CONDICIÓN CRÍTICA · AGUJERO MÍN. / EJE MÁX.</text>
+              <rect class="part-card hole" x="42" y="57" width="306" height="48" />
+              <text class="part-name hole" x="56" y="76">AGUJERO / ALOJAMIENTO</text>
+              <text class="part-value" id="assembly-hole-label" x="56" y="95">Ø 100,000 — 100,054 mm</text>
+
+              <g class="assembly" filter="url(#shadow)">
+                <path id="housing-upper" class="housing-upper" d="M68 121 H322 L348 147 V208 H68 Z" />
+                <path id="housing-lower" class="housing-lower" d="M68 272 H348 V333 L322 359 H68 Z" />
+                <path id="section-lines" class="section-lines" d="M68 121 H322 L348 147 V208 H68 Z M68 272 H348 V333 L322 359 H68 Z" />
+                <g id="assembly-clearance"></g>
+                <line id="bore-edge-upper" class="bore-edge" x1="68" y1="208" x2="348" y2="208" />
+                <line id="bore-edge-lower" class="bore-edge" x1="68" y1="272" x2="348" y2="272" />
+
+                <rect id="shaft-body" class="shaft-body" x="27" y="213" width="309" height="54" />
+                <ellipse id="shaft-end" class="shaft-end" cx="27" cy="240" rx="24" ry="27" />
+                <ellipse id="shaft-rim" class="shaft-rim" cx="336" cy="240" rx="15" ry="27" />
+                <line class="axis" x1="3" y1="240" x2="368" y2="240" />
+              </g>
+
+              <text class="geometry-note" x="195" y="378" text-anchor="middle">GEOMETRÍA AMPLIFICADA PARA LECTURA</text>
+              <rect class="part-card shaft" x="42" y="391" width="306" height="48" />
+              <text class="part-name shaft" x="56" y="410">EJE</text>
+              <text class="part-value" id="assembly-shaft-label" x="56" y="429">Ø 99,966 — 99,988 mm</text>
+            </g>
+
+            <g class="tolerance-chart">
+              <line class="panel-divider" x1="392" y1="42" x2="392" y2="438" />
+              <text class="chart-title" x="423" y="60">DESVIACIÓN RESPECTO DEL NOMINAL</text>
+              <text class="chart-unit" x="856" y="60" text-anchor="end">µm</text>
+              <text class="diagram-fit-code" id="diagram-fit-code" x="856" y="84" text-anchor="end">H8 / g6</text>
+              <line class="chart-grid" x1="423" y1="100" x2="856" y2="100" />
+              <line class="chart-grid" x1="423" y1="170" x2="856" y2="170" />
+              <line class="chart-grid" x1="423" y1="310" x2="856" y2="310" />
+              <line class="chart-grid" x1="423" y1="380" x2="856" y2="380" />
+              <line class="reference" x1="423" y1="240" x2="856" y2="240" />
+              <rect class="zero-tag" x="423" y="222" width="48" height="18" />
+              <text class="reference-label" x="447" y="235" text-anchor="middle">0 µm</text>
+              <text class="nominal-label" x="852" y="230" text-anchor="end">PLANO NOMINAL</text>
+              <g id="hole-band"></g>
+              <g id="shaft-band"></g>
+              <g id="clearance-indicator"></g>
+              <g id="chart-labels"></g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="diagram-caption">
+          <p><strong>Lectura:</strong> la separación entre las bandas representa el juego; si se superponen, existe transición o apriete.</p>
+          <span id="scale-label">Escala automática · desviaciones en µm</span>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Implementación independiente, no afiliada ni certificada por ISO. Contraste los resultados con la <a href="https://www.iso.org/standard/45975.html" target="_blank" rel="noreferrer">publicación oficial</a> antes de fabricar, inspeccionar o aceptar piezas.</p>
+      <p>WEB + LOCAL / V1.5 · Cálculo en el navegador</p>
+    </footer>
+
+    <script src="iso-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
