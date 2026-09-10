@@ -2,6 +2,8 @@
 
 Aplicación web independiente para calcular límites dimensionales, juego o interferencia y visualizar campos de tolerancia. Funciona en GitHub Pages o sin conexión desde los archivos locales; no necesita Excel ni dependencias de ejecución.
 
+**Aplicación publicada:** https://danifendyk.github.io/calculadora-ajustes-iso/
+
 ## Uso en Windows
 
 1. Mantenga `Calculadora Ajustes ISO.exe` y la carpeta `dist` en el mismo directorio.
